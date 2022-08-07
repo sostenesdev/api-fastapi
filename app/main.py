@@ -1,4 +1,5 @@
 from fastapi import Depends, FastAPI, Request
+from models.user import User
 from auth.auth_bearer import JWTBearer
 from auth import jwt_token_handler
 
@@ -15,10 +16,13 @@ async def root():
 async def root():
     return {"message": "Hello World"}
 
+@app.get("/users", status_code=200, dependencies=[Depends(JWTBearer())])
+async def get_all_users():
+    return User.getAll()
 
-@app.get("/items/{id}", status_code=200, dependencies=[Depends(JWTBearer())])
-async def read_item(request: Request, id: str):
-    return {"message": "Hello World"}
+@app.get("/users/{id}", status_code=200, dependencies=[Depends(JWTBearer())])
+async def read_item(request: Request, id: int):
+    return User.getById(id)
 
 
 

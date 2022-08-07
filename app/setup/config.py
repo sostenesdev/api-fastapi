@@ -9,3 +9,6 @@ HOST = "127.0.0.1"
 PORT = 8000
 LOG_LEVEL="debug"
 #END HOST CONFIG
+
+# CONNECTION_STRING = "mysql://root:password@localhost/testapi?set_encoding=utf8mb4"
+CONNECTION_STRING = "mysql://root:@localhost/testapi?set_encoding=utf8mb4"
