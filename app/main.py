@@ -17,8 +17,8 @@ async def root():
     return {"message": "Hello World"}
 
 @app.get("/users", status_code=200, dependencies=[Depends(JWTBearer())])
-async def get_all_users():
-    return User.getAll()
+async def get_all_users(page:int = 1, pageSize:int = 10):
+    return User.getAll(page=page, pageSize=pageSize)
 
 @app.get("/users/{id}", status_code=200, dependencies=[Depends(JWTBearer())])
 async def read_item(request: Request, id: int):

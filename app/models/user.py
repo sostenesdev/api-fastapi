@@ -24,8 +24,8 @@ class User(BaseModel):
     def getAll(page=1, pageSize = 10):
         db = define_database()
         try:
-            rows = db(db.users).select(limit=((page-1)*pageSize, page*pageSize))
-            return Message(data = rows.json())
+            rows = db(db.users).select(limitby=((page-1)*pageSize, page*pageSize))
+            return Message(data = rows.as_list())
         except:
             return Message(success=False, message="Erro ao obter usuário")
         finally:
