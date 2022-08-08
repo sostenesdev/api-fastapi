@@ -7,17 +7,17 @@ from auth import jwt_token_handler
 app = FastAPI()
 
 
-@app.get("/",status_code=200, dependencies=[Depends(JWTBearer())])
-async def root():
+@app.get("/",status_code=200)
+async def root(token = Depends(JWTBearer())):
     return {"message": "Hello World"}
 
 
-@app.get("/hello",status_code=200, dependencies=[Depends(JWTBearer())])
-async def root():
+@app.get("/hello",status_code=200)
+async def root(token = Depends(JWTBearer())):
     return {"message": "Hello World"}
 
-@app.get("/users", status_code=200, dependencies=[Depends(JWTBearer())])
-async def get_all_users(page:int = 1, pageSize:int = 10):
+@app.get("/users", status_code=200)
+async def get_all_users(token = Depends(JWTBearer()), page:int = 1, pageSize:int = 10):
     return User.getAll(page=page, pageSize=pageSize)
 
 @app.get("/users/{id}", status_code=200, dependencies=[Depends(JWTBearer())])
