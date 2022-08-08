@@ -8,16 +8,17 @@ app = FastAPI()
 
 
 @app.get("/",status_code=200)
-async def root(token = Depends(JWTBearer())):
+async def root(token_payload = Depends(JWTBearer())):
+    print(token_payload)
     return {"message": "Hello World"}
 
 
 @app.get("/hello",status_code=200)
-async def root(token = Depends(JWTBearer())):
+async def root(token_payload = Depends(JWTBearer())):
     return {"message": "Hello World"}
 
 @app.get("/users", status_code=200)
-async def get_all_users(token = Depends(JWTBearer()), page:int = 1, pageSize:int = 10):
+async def get_all_users(token_payload = Depends(JWTBearer()), page:int = 1, pageSize:int = 10):
     return User.getAll(page=page, pageSize=pageSize)
 
 @app.get("/users/{id}", status_code=200, dependencies=[Depends(JWTBearer())])
